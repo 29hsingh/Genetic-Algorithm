@@ -1,26 +1,28 @@
 import random
 import math
 def set_nature():
-    target_string = "harshit singh"
-    target = list(target_string)
-    population = 500
-    mutation_extent = 2
-    population_record = generate_random_population(len(target), population)
-    iteration = 0
     while True:
-        natural_selection_probability = calculate_score(population_record, target)
-        population_record = perform_natural_selection(population_record, natural_selection_probability, mutation_extent)
-        fittest = natural_selection_probability.index(max(natural_selection_probability))
-        str = ""
-        for genes in population_record[fittest]:
-            str += genes
-        print(str)
-        iteration += 1
-        # print("score: ", natural_selection_probability[fittest])
-        if str.lower() == target_string.lower():
-            print(iteration, "Generations")
-            print("\n**** Mother String mutation completed ****\n")
-            break
+        target_string = input("Enter target string: ")
+        target = list(target_string)
+        population = 1000
+        # extent of mutation in range 1 to 100
+        mutation_extent = 3
+        population_record = generate_random_population(len(target), population)
+        generation = 0
+        while True:
+            natural_selection_probability = calculate_score(population_record, target)
+            population_record = perform_natural_selection(population_record, natural_selection_probability, mutation_extent)
+            fittest = natural_selection_probability.index(max(natural_selection_probability))
+            str = ""
+            for genes in population_record[fittest]:
+                str += genes
+            print(str)
+            generation += 1
+            # print("score: ", natural_selection_probability[fittest])
+            if str == target_string:
+                print(generation, "Generations")
+                print("\n**** Mother String mutation completed ****\n")
+                break
 
 def generate_random_population(no_of_genes, population):
     population_record = []
@@ -37,7 +39,7 @@ def calculate_score(population_record, target):
     for dna in population_record:
         score = 0
         for gene in range(0, len(target)):
-            if dna[gene].lower()== target[gene].lower():
+            if dna[gene]== target[gene]:
                 score+=1
         selection_probability.append(score/len(target)*100)
     return selection_probability 
@@ -74,3 +76,4 @@ def mutation(infant, mutation_extent):
     return infant        
 
 set_nature()    
+ 
