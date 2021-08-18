@@ -41,7 +41,7 @@ def calculate_score(population_record, target):
         for gene in range(0, len(target)):
             if dna[gene]== target[gene]:
                 score+=1
-        selection_probability.append(score/len(target)*100)
+        selection_probability.append(pow((score/len(target)*100), 4))
     return selection_probability 
 
 def perform_natural_selection(population_record, selection_prob, mutation_extent):
